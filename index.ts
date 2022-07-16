@@ -1,23 +1,53 @@
 // TypeScript, ECMA Script
+// 잘 지내시나요? 건강하세요!
 
-let v: string | number = 1;
 
-v = "a";
-
-v = true;
-
-async function PromiseExampleFunction()
+// # 1. What is Type?
 {
-   return new Promise((resolve, reject) =>
+   let v: string | number = 1;
+   let type: "string" | "number" | "unknown" = "unknown";
+
+   switch (typeof v)
    {
-      setTimeout(() => { resolve(true); }, 1000);
-      setTimeout(() => { reject(false); }, 2000);
-   });
+      case "string":
+         type = "string";
+         break;
+
+      case "number":
+         type = "number";
+         break;
+
+      default:
+         type = "unknown";
+         break;
+   }
+
+   console.log(`Type is ${ type }`);
 }
 
-async function main()
+// # 2. Promise and Async/Await
 {
-   PromiseExampleFunction().then((b) => { console.log(b); }).catch((b) => { console.log(b); });
+   async function PromiseExampleFunction()
+   {
+      return new Promise<boolean>((resolve, reject) =>
+      {
+         setTimeout(() => { resolve(true); }, 1000);
+         setTimeout(() => { reject(false); }, 2000);
+      });
+   }
+
+   async function main()
+   {
+      PromiseExampleFunction().then((v: boolean) =>
+      {
+         console.log(`resolved: ${ v }`);
+
+      }).catch((v: boolean) =>
+      {
+         console.log(`rejected: ${ v }`);
+      });
+   }
+
+   async () => { await main(); };
 }
 
-main();
